@@ -14,20 +14,20 @@ Encode the rclone.conf file in Base64 using this command `base64 -w 0 rclone.con
 ```yaml
 steps:
   - name: Setup Rclone
-    uses: AnimMouse/setup-rclone@v1
+    uses: https://git.msqu.de/cicd/setup_rclone.git@main
     with:
       rclone_config: ${{ secrets.RCLONE_CONFIG }}
-      
+
   - run: rclone copy source:sourcepath dest:destpath
 ```
 For bare remote, use single quotes to stop the YAML parser from interpreting the remote as a key-value pair.
 ```yaml
 steps:
   - name: Setup Rclone
-    uses: AnimMouse/setup-rclone@v1
+    uses: https://git.msqu.de/cicd/setup_rclone.git@main
     with:
       rclone_config: ${{ secrets.RCLONE_CONFIG }}
-      
+
   - run: 'rclone copy source: dest:'
 ```
 
@@ -35,10 +35,10 @@ steps:
 ```yaml
 steps:
   - name: Setup Rclone
-    uses: AnimMouse/setup-rclone@v1
+    uses: https://git.msqu.de/cicd/setup_rclone.git@main
     with:
       rclone_config: ${{ secrets.RCLONE_CONFIG }}
-      
+
   - run: |
       rclone copy source:sourcepath dest:destpath
       rclone copy source: dest:
@@ -51,10 +51,10 @@ Paste your Rclone config pass to `RCLONE_CONFIG_PASS` secret.
 ```yaml
 steps:
   - name: Setup Rclone
-    uses: AnimMouse/setup-rclone@v1
+    uses: https://git.msqu.de/cicd/setup_rclone.git@main
     with:
       rclone_config: ${{ secrets.RCLONE_CONFIG }}
-      
+
   - run: rclone copy source:sourcepath dest:destpath
     env:
       RCLONE_CONFIG_PASS: ${{ secrets.RCLONE_CONFIG_PASS }}
@@ -66,10 +66,10 @@ You can use Rclone without a config file by using command-line options or enviro
 ```yaml
 steps:
   - name: Setup Rclone
-    uses: AnimMouse/setup-rclone@v1
-    
+    uses: https://git.msqu.de/cicd/setup_rclone.git@main
+
   - run: 'rclone lsd --http-url https://beta.rclone.org :http:'
-    
+
   - run: 'rclone lsd :http:'
     env:
       RCLONE_HTTP_URL: https://beta.rclone.org
@@ -81,14 +81,14 @@ You can disable Base64 so that you can input the config file in plain text. This
 ```yaml
 steps:
   - name: Setup Rclone
-    uses: AnimMouse/setup-rclone@v1
+    uses: https://git.msqu.de/cicd/setup_rclone.git@main
     with:
       rclone_config: |
         [rclone-test-remote]
         type = http
         url = https://beta.rclone.org/test/
       disable_base64: true
-      
+
   - run: 'rclone lsd rclone-test-remote:'
 ```
 
@@ -100,16 +100,16 @@ Encode the service-account-file.json file in Base64 using this command `base64 -
 ```yaml
 steps:
   - name: Setup Rclone
-    uses: AnimMouse/setup-rclone@v1
+    uses: https://git.msqu.de/cicd/setup_rclone.git@main
     with:
       rclone_config: ${{ secrets.RCLONE_CONFIG }}
-      
+
   - name: Add Rclone service account file
-    uses: AnimMouse/setup-rclone/service-account-file@v1
+    user: https://git.msqu.de/cicd/setup_rclone.git/service-account-file@main
     with:
       service_account_filename: service-account-file.json
       service_account_file: ${{ secrets.SERVICE_ACCOUNT_FILE }}
-      
+
   - run: rclone copy source:sourcepath dest:destpath
 ```
 
@@ -123,14 +123,14 @@ This requires a fine-grained personal access token that has read and write acces
 ```yaml
 steps:
   - name: Setup Rclone
-    uses: AnimMouse/setup-rclone@v1
+    uses: https://git.msqu.de/cicd/setup_rclone.git@main
     with:
       rclone_config: ${{ secrets.RCLONE_CONFIG }}
-      
+
   - run: rclone copy source:sourcepath dest:destpath
-    
+
   - name: Update Rclone config
-    uses: AnimMouse/setup-rclone/update-config@v1
+    user: https://git.msqu.de/cicd/setup_rclone.git/update-config@main
     with:
       rclone_config_secret_name: RCLONE_CONFIG
       token: ${{ secrets.GH_PAT }}
@@ -142,7 +142,7 @@ You can specify the version you want. By default, this action downloads the late
 ```yaml
 steps:
   - name: Setup Rclone
-    uses: AnimMouse/setup-rclone@v1
+    uses: https://git.msqu.de/cicd/setup_rclone.git@main
     with:
       rclone_config: ${{ secrets.RCLONE_CONFIG }}
       version: v1.64.0
@@ -154,7 +154,7 @@ This action automatically uses a GitHub token in order to authenticate with the 
 ```yaml
 steps:
   - name: Setup Rclone
-    uses: AnimMouse/setup-rclone@v1
+    uses: https://git.msqu.de/cicd/setup_rclone.git@main
     with:
       rclone_config: ${{ secrets.RCLONE_CONFIG }}
       token: ${{ secrets.GH_PAT }}
